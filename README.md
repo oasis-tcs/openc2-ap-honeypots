@@ -10,6 +10,30 @@ The purpose of this repository is develop an OpenC2 actuator profile (AP) for th
 
 Open Command and Control (OpenC2) is a concise and extensible language to enable the command and control of cyber defense components, subsystems and/or systems in a manner that is agnostic of the underlying products, technologies, transport mechanisms or other aspects of the implementation. Honeypots are systems used to both detect the presence of an intruder attempting to breach a network or system and to divert an intruder from other targets. This OpenC2 Actuator Profile defines the Actions, Targets, Specifiers and Options that are consistent with the version 1.0 of the OpenC2 Language Specification ([OpenC2-Lang-v1.0]) in the context of command and control of various honeypots.
 
+### Branching Strategy
+
+This repository is organized with three branches:
+
+ * The *_Working_* branch contains work product 
+ material that is actively being developed, and 
+ subject to potentially frequent and significant 
+ change. Contributors to the work product should 
+ target their inputs to the Working branch.
+
+ * The *_Releases_* branch contains incremental 
+ releases (i.e., Working Drafts [WDs]) of the work 
+ product. The current contents of the Working 
+ branch are merged into the Releases branch to 
+ create a WD. 
+
+ * The *_Master_* , main, or published branch contains TC-approved 
+[Committee Specification](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dCommitteeSpec) (CS) or [OASIS Standard](https://www.oasis-open.org/policies-guidelines/oasis-defined-terms-2018-05-22#dOASISstandard) 
+versions of the work product. Until the first CS 
+is approved, the Master branch will not contain 
+a complete version of the work product.
+
+![Branching /  Versioning Strategy](images/versioning-concept.png)
+
 ## Contributions
 
 As stated in this repository's [CONTRIBUTING](https://github.com/oasis-tcs/openc2-ap-honeypots/blob/master/CONTRIBUTING.md) file, contributors to this repository must be Members of the OASIS OpenC2 TC for any substantive contributions or change requests.  Anyone wishing to contribute to this GitHub project and [participate](https://www.oasis-open.org/join/participation-instructions) in the TC's technical activity is invited to join as an OASIS TC Member. Public feedback is also accepted, subject to the terms of the [OASIS Feedback License](https://www.oasis-open.org/policies-guidelines/ipr#appendixa). 
