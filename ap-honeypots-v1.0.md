@@ -296,11 +296,12 @@ Table 2.1.1-1 presents the OpenC2 Actions defined in version 1.0 of the Language
 
 | ID | Name | Description |
 | :--- | :--- | :--- |
-| 3 | **query** | Initiate a request for information. Used to communicate the supported options and determine the state or settings |
-| 6 | **deny** | Prevent traffic or access |
-| 8 | **allow** | Permit traffic or access |
-| 16 | **update** | Instructs the Actuator to update its configuration by retrieving and processing a configuration file and update |
-| 20 | **delete** | Remove an access rule |
+| 3 | **query** | Initiate a request for information. Used to retrieve information about one or more honeypots |
+| 9 | **start** | Initiate a process, application, system, or activity. Used to start one or more honeypots|
+| 10 | **stop** | Halt a system or end an activity. Used to stop one or more honeypots|
+| 11 | **restart** | Stop then start a system or an activity. Used to restart one or more honeypots|
+| 15 | **set** | Change a value, configuration, or state of a managed entity. Used to set a configuration value |
+| 16 | **update** | Instruct a component to retrieve, install, process, and operate in accordance with a software update, reconfiguration, or other update. Used to update one or more honeypots via a small text file|
 
 ### 2.1.2 Targets
 Table 2.1.2-1 summarizes the Targets defined in Version 1.0 of the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) as they relate to SLPF functionality. Table 2.1.2-2 summarizes the Targets that are defined in this specification.
@@ -308,18 +309,16 @@ Table 2.1.2-1 summarizes the Targets defined in Version 1.0 of the [[OpenC2-Lang
 #### 2.1.2.1 Common Targets
 Table 2.1.2-1 lists the Targets defined in the OpenC2 Language Specification that are applicable to SLPF. The particular Action/Target pairs that are required or are optional are presented in [Section 2.3](#23-openc2-commands).
 
-**Table 2.1.2-1. Targets Applicable to SLPF**
+**Table 2.1.2-1. Targets Applicable to Honeypots**
 
 **_Type: Target (Choice)_**
 
 | ID | Name | Type | Description |
 | :--- | :--- | :--- | :--- |
+| 3 | **device** | Device | The properties of a hardware device. |
 | 9 | **features** | Features | A set of items such as Action/Target pairs, profiles versions, options that are supported by the Actuator. The Target is used with the query Action to determine an Actuator's capabilities |
 | 10 | **file** | File | Properties of a file |
-| 13 | **ipv4_net** | IPv4-Net | The representation of one or more IPv4 addresses expressed using CIDR notation |
-| 14 | **ipv6_net** | IPv6-Net | The representation of one or more IPv6 addresses expressed using CIDR notation |
-| 15 | **ipv4_connection** | IPv4-Connection | A network connection as specified by a five-tuple (IPv4) |
-| 16 | **ipv6_connection** | IPv6-Connection | A network connection as specified by a five-tuple (IPv6) |
+
 
 The semantics/ requirements as they pertain to common targets:
 * ipv4_connection
