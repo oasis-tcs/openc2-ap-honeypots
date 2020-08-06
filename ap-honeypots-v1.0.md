@@ -302,12 +302,14 @@ Table 2.1.1-1 presents the OpenC2 Actions defined in version 1.0 of the Language
 | 11 | **restart** | Stop then start a system or an activity. Used to restart one or more honeypots|
 | 15 | **set** | Change a value, configuration, or state of a managed entity. Used to set a configuration value |
 | 16 | **update** | Instruct a component to retrieve, install, process, and operate in accordance with a software update, reconfiguration, or other update. Used to update one or more honeypots via a small text file|
+| 19 | **create** | Add a new entity of a known type (e.g., data, files, directories). Used to create one or more honeypots |
+| 20 | **delete** | Remove an entity (e.g., data, files, flows). Used to remove one or more honeypots |
 
 ### 2.1.2 Targets
-Table 2.1.2-1 summarizes the Targets defined in Version 1.0 of the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) as they relate to SLPF functionality. Table 2.1.2-2 summarizes the Targets that are defined in this specification.
+Table 2.1.2-1 summarizes the Targets defined in Version 1.0 of the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) as they relate to Honeypots functionality. Table 2.1.2-2 summarizes the Targets that are defined in this specification.
 
 #### 2.1.2.1 Common Targets
-Table 2.1.2-1 lists the Targets defined in the OpenC2 Language Specification that are applicable to SLPF. The particular Action/Target pairs that are required or are optional are presented in [Section 2.3](#23-openc2-commands).
+Table 2.1.2-1 lists the Targets defined in the OpenC2 Language Specification that are applicable to Honeypots. The particular Action/Target pairs that are required or are optional are presented in [Section 2.3](#23-openc2-commands).
 
 **Table 2.1.2-1. Targets Applicable to Honeypots**
 
@@ -315,41 +317,17 @@ Table 2.1.2-1 lists the Targets defined in the OpenC2 Language Specification tha
 
 | ID | Name | Type | Description |
 | :--- | :--- | :--- | :--- |
-| 3 | **device** | Device | The properties of a hardware device. |
+| 3 | **device** | Device | The properties of a hardware device. Used to identify one or more honeypots|
 | 9 | **features** | Features | A set of items such as Action/Target pairs, profiles versions, options that are supported by the Actuator. The Target is used with the query Action to determine an Actuator's capabilities |
 | 10 | **file** | File | Properties of a file |
 
-
-The semantics/ requirements as they pertain to common targets:
-* ipv4_connection
-    * If the protocol = ICMP, the five-tuple is: src_addr, dst_addr, icmp_type, icmp_code, protocol
-      where the ICMP types and codes are defined in [[RFC2780]](#rfc2780)
-    * If the protocol = TCP, UDP or SCTP, the five-tuple is: src_addr, src_port, dst_addr, dst_port, protocol
-    * For any other protocol, the five-tuple is: src_addr, unused, dst_addr, unused, protocol
-* ipv6_connection
-    * If the protocol = ICMP, the five-tuple is: src_addr, dst_addr, icmp_type, icmp_code, protocol
-      where the ICMP types and codes are defined in [[RFC4443]](#rfc4443)
-    * If the protocol = TCP, UDP or SCTP, the five-tuple is: src_addr, src_port, dst_addr, dst_port, protocol
-    * For any other protocol, the five-tuple is: src_addr, unused, dst_addr, unused, protocol
-
-#### 2.1.2.2 SLPF Targets
-The list of common Targets is extended to include the additional Targets defined in this section and referenced with the slpf namespace.
-
-**Table 2.1.2-2. Targets Unique to SLPF**
-
-**_Type: Target (Choice)_**
-
-| ID | Name | Type | Description |
-| :--- | :--- | :--- | :--- |
-| 1024 | **rule_number** | Rule-ID | Immutable identifier assigned when a rule is created. Identifies a rule to be deleted |
-
 ### 2.1.3 Command Arguments
-Arguments provide additional precision to a Command by including information such as how, when, or where a Command is to be executed. Table 2.1.3-1 summarizes the Command Arguments defined in Version 1.0 of the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) as they relate to SLPF functionality. Table 2.1.3-2 summarizes the Command Arguments that are defined in this specification.
+Arguments provide additional precision to a Command by including information such as how, when, or where a Command is to be executed. Table 2.1.3-1 summarizes the Command Arguments defined in Version 1.0 of the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) as they relate to Honeypots functionality. Table 2.1.3-2 summarizes the Command Arguments that are defined in this specification.
 
 #### 2.1.3.1 Common Arguments
-Table 2.1.3-1 lists the Command Arguments defined in the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) that are applicable to SLPF.
+Table 2.1.3-1 lists the Command Arguments defined in the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) that are applicable to Honeypots.
 
-**Table 2.1.3-1. Command Arguments applicable to SLPF**
+**Table 2.1.3-1. Command Arguments applicable to Honeypots**
 
 **_Type: Args (Map)_**
 
@@ -360,72 +338,23 @@ Table 2.1.3-1 lists the Command Arguments defined in the [[OpenC2-Lang-v1.0]](#o
 | 3 | **duration** | Duration | 0..1 | The length of time for an Action to be in effect |
 | 4 | **response_requested** | Response-Type | 0..1 | The type of Response required for the Action: `none`, `ack`, `status`, `complete` |
 
-#### 2.1.3.2 SLPF Arguments
-The list of common Command Arguments is extended to include the additional Command Arguments defined in this section and referenced with the slpf namespace.
-
-**Table 2.1.3-2. Command Arguments Unique to SLPF**
-
-**_Type: Args (Map)_**
-
-| ID | Name | Type | # | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| 1024 | **drop_process** | Drop-Process | 0..1 | Specifies how to handle denied packets |
-| 1025 | **persistent** | Boolean | 0..1 | Normal operations assume any changes to a device are to be implemented persistently. Setting the persistent modifier to FALSE results in a change that is not persistent in the event of a reboot or restart |
-| 1026 | **direction** | Direction | 0..1 | Specifies whether to apply rules to incoming or outgoing traffic. If omitted, rules are applied to both |
-| 1027 | **insert_rule** | Rule-ID | 0..1 | Specifies the identifier of the rule within a list, typically used in a top-down rule list |
-
-**_Type: Drop-Process (Enumerated)_**
-
-| ID | Name | Description |
-| :--- | :--- | :--- |
-| 1 | **none** | Drop the packet and do not send a notification to the source of the packet |
-| 2 | **reject** | Drop the packet and send an ICMP host unreachable (or equivalent) to the source of the packet |
-| 3 | **false_ack** | Drop the traffic and send a false acknowledgment |
-
-**_Type: Direction (Enumerated)_**
-
-| ID | Name | Description |
-| :--- | :--- | :--- |
-| 1 | **both** | Apply rules to all traffic |
-| 2 | **ingress** | Apply rules to incoming traffic only |
-| 3 | **egress** | Apply rules to outgoing traffic only |
-
-**_Type: Rule-ID_**
-
-| Type Name | Type | Description |
-| :--- | :--- | :--- |
-| **Rule-ID** | Integer | Access rule identifier |
-
-The semantics/requirements as they relate to SLPF arguments:
-
-* insert_rule:
-    * The value MUST be immutable - i.e., the identifier assigned to an access rule at creation must not change over the lifetime of that rule
-
-    * The value MUST be unique within the scope of an Openc2 Producer and an Openc2 Consumer- i.e., the value MUST map to exactly one deny <target> or allow <target> for a given instance of an SLPF
-
-* directionality:
-    * Entities that receive but do not support directionality MUST NOT reply with 200 OK and SHOULD return a 501 error code
-    * If absent or not explicitly set, then the Command MUST apply to both
-* drop_process:  If absent or not explicitly set, then the Actuator MUST NOT send any notification to the source of the packet
-* persistent:  If absent or not explicitly set, then the value is TRUE and any changes are persistent
-
 ### 2.1.4 Actuator Specifiers
-An Actuator is the entity that provides the functionality and performs the Action. The Actuator executes the Action on the Target. In the context of this profile, the Actuator is the SLPF and the presence of one or more Specifiers further refine which Actuator(s) shall execute the Action.
+An Actuator is the entity that provides the functionality and performs the Action. The Actuator executes the Action on the Target. In the context of this profile, the Actuator is the Honeypots and the presence of one or more Specifiers further refine which Actuator(s) shall execute the Action.
 
-Table 2.1.4-1 lists the Specifiers that are applicable to the SPLF Actuator. [Annex A](#annex-a-sample-commands) provides sample Commands with the use of Specifiers.
+Table 2.1.4-1 lists the Specifiers that are applicable to the Honeypots Actuator. [Annex A](#annex-a-sample-commands) provides sample Commands with the use of Specifiers.
 
-The Actuator Specifiers defined in this document are referenced under the slpf namespace.
+The Actuator Specifiers defined in this document are referenced under the honeypots namespace.
 
-**Table 2.1.4-1. SLPF Specifiers**
+**Table 2.1.4-1. Honeypots Specifiers**
 
 **_Type: Specifiers (Map)_**
 
 | ID | Name | Type | # | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | **hostname** | String | 0..1 | [[RFC1123]](#rfc1123) hostname (can be a domain name or IP address) for a particular device with SLPF functionality |
-| 2 | **named_group** | String | 0..1 | User defined collection of devices with SLPF functionality |
-| 3 | **asset_id** | String | 0..1 | Unique identifier for a particular SLPF |
-| 4 | **asset_tuple** | String | 0..10 | Unique tuple identifier for a particular SLPF consisting of a list of up to 10 strings |
+| 1 | **hostname** | String | 0..1 | [[RFC1123]](#rfc1123) hostname (can be a domain name or IP address) for a particular device with Honeypots functionality |
+| 2 | **named_group** | String | 0..1 | User defined collection of devices with Honepots functionality |
+| 3 | **asset_id** | String | 0..1 | Unique identifier for a particular honeypot |
+| 4 | **asset_tuple** | String | 0..10 | Unique tuple identifier for a particular honeypot consisting of a list of up to 10 strings |
 
 ## 2.2 OpenC2 Response Components
 Response messages originate from the Actuator as a result of a Command.
@@ -433,9 +362,9 @@ Response messages originate from the Actuator as a result of a Command.
 Responses associated with required Actions MUST be implemented. Implementations that include optional Actions MUST implement the RESPONSE associated with the implemented Action. Additional details regarding the Command and associated Response are captured in [Section 2.3](#23-openc2-commands). Examples are provided in [Annex A](#annex-a-sample-commands).
 
 ### 2.2.1 Common Results
-Table 2.2.1-1 lists the Response Results properties defined in the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) that are applicable to SLPF.
+Table 2.2.1-1 lists the Response Results properties defined in the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) that are applicable to Honeypots.
 
-**Table 2.2.1-1. Response Results Applicable to SLPF**
+**Table 2.2.1-1. Response Results Applicable to Honeypots**
 
 **_Type: Results (Map [1..*])_**
 
@@ -446,19 +375,8 @@ Table 2.2.1-1 lists the Response Results properties defined in the [[OpenC2-Lang
 | 3 | **pairs** | Action-Targets | 0..* | List of targets applicable to each supported Action |
 | 4 | **rate_limit** | Number | 0..1 | Maximum number of requests per minute supported by design or policy |
 
-### 2.2.2 SLPF Results
-The list of common Response properties is extended to include the additional Response properties defined in this section and referenced with the slpf namespace.
-
-**Table 2.2.2-1. SLPF Results**
-
-**_Type: OpenC2-Response (Map)_**
-
-| ID | Name | Type | Description |
-| :--- | :--- | :--- | :--- |
-| 1024 | **rule_number** | Rule-ID | Rule identifier returned from allow or deny Command |
-
 ### 2.2.3 Response Status Codes
-Table 2.2.1-2 lists the Response Status Codes defined in the OpenC2 Language Specification that are applicable to SLPF.
+Table 2.2.1-2 lists the Response Status Codes defined in the OpenC2 Language Specification that are applicable to Honeypots.
 
 **Table 2.2.1-2. Response Status Codes**
 
@@ -480,15 +398,11 @@ Table 2.3-1 defines the Commands that are valid in the context of the SLPF profi
 
 **Table 2.3-1. Command Matrix**
 
-|   | Allow | Deny | Query | Delete | Update |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **ipv4_connection** | valid | valid |   |   |   |
-| **ipv6_connection** | valid | valid |   |   |   |
-| **ipv4_net** | valid | valid |   |   |   |
-| **ipv6_net** | valid | valid |   |   |   |
-| **features** |   |   | valid |   |   |
-| **slpf:rule_number** |   |   |   | valid |   |
-| **file** |   |   |   |   | valid |
+|   | Query | Start | Stop | Restart | Set | Update | Create | Delete |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **devices** | valid | valid |   |   |   |   |   |
+| **features** | valid | valid |   |   |   |   |   |
+| **files** | valid | valid |   |   |   |   |   |
 
 Table 2.3-2 defines the Command Arguments that are allowed for a particular Command by the SLPF profile. A Command (the top row in Table 2.3-2) paired with an Argument (the first column in Table 2.3-2) defines an allowable combination. The subsection identified at the intersection of the Command/Argument provides details applicable to each Command as influenced by the Argument.
 
