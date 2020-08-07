@@ -400,24 +400,19 @@ Table 2.3-1 defines the Commands that are valid in the context of the SLPF profi
 
 |   | Query | Start | Stop | Restart | Set | Update | Create | Delete |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **devices** | valid | valid |   |   |   |   |   |   |
-| **features** | valid | valid |   |   |   |   |   |   |
-| **files** | valid | valid |   |   |   |   |   |   |
+| **devices** | | valid | valid | valid |   | valid | valid | valid |
+| **features** | valid | |   |   |   |   |   |   |
+| **files** |  |  |   |   | valid | valid |   |   |
 
 Table 2.3-2 defines the Command Arguments that are allowed for a particular Command by the SLPF profile. A Command (the top row in Table 2.3-2) paired with an Argument (the first column in Table 2.3-2) defines an allowable combination. The subsection identified at the intersection of the Command/Argument provides details applicable to each Command as influenced by the Argument.
 
 **Table 2.3-2. Command Arguments Matrix**
 
-|   | Allow _target_ | Deny _target_ | Query features | Delete slpf:rule_number | Update file |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **response_requested** | [2.3.1](#231-allow) | [2.3.2](#232-deny) | [2.3.3.1](#2331-query-features) | [2.3.4.1](#2341-delete-slpfrule_number) | [2.3.5.1](#2351-update-file) |
-| **start_time** | [2.3.1](#231-allow)| [2.3.2](#232-deny) |   | [2.3.4.1](#2341-delete-slpfrule_number) | [2.3.5.1](#2351-update-file) |
-| **stop_time** | [2.3.1](#231-allow) | [2.3.2](#232-deny) |   |   |   |
-| **duration** | [2.3.1](#231-allow) | [2.3.2](#232-deny) |   |   |   |
-| **persistent** | [2.3.1](#231-allow) | [2.3.2](#232-deny) |   |   |   |
-| **direction** | [2.3.1](#231-allow) | [2.3.2](#232-deny) |   |   |   |
-| **insert_rule** | [2.3.1](#231-allow)| [2.3.2](#232-deny) |   |   |   |
-| **drop_process** |   | [2.3.2](#232-deny) |   |   |   |
+|   | Query features | Update file |
+| :--- | :---: | :---: | 
+| **response_requested** | [2.3.1](#231-allow) | [2.3.2](#232-deny) | 
+| **start_time** | [2.3.1](#231-allow)| [2.3.2](#232-deny) |   
+| **stop_time** | [2.3.1](#231-allow) | [2.3.2](#232-deny) |  
 
 ### 2.3.1 Allow
 Table 2.3.1-1 summarizes the Command Arguments that apply to all of the Commands consisting of the 'allow' Action and a valid Target type.
