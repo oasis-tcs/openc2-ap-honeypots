@@ -321,6 +321,18 @@ Table 2.1.2-1 lists the Targets defined in the OpenC2 Language Specification tha
 | 9 | **features** | Features | A set of items such as Action/Target pairs, profiles versions, options that are supported by the Actuator. The Target is used with the query Action to determine an Actuator's capabilities |
 | 10 | **file** | File | Properties of a file |
 
+#### 2.1.2.2 Honeypots Targets
+The list of common Targets is extended to include the additional Targets defined in this section and referenced with the honeypots namespace.
+
+**Table 2.1.2-2. Targets Unique to Honeypots**
+
+**_Type: Target (Choice)_**
+
+| ID | Name | Type | Description |
+| :--- | :--- | :--- | :--- |
+| 1024 | **hit_count** | Number | Represents the number of hits against one or more honeypots over a time period |
+| 1025 | **hit_details** | Hit-Details | Represents details regarding a hits against one or more honeypots over a time period |
+
 ### 2.1.3 Command Arguments
 Arguments provide additional precision to a Command by including information such as how, when, or where a Command is to be executed. Table 2.1.3-1 summarizes the Command Arguments defined in Version 1.0 of the [[OpenC2-Lang-v1.0]](#openc2-lang-v10) as they relate to Honeypots functionality. Table 2.1.3-2 summarizes the Command Arguments that are defined in this specification.
 
@@ -337,6 +349,12 @@ Table 2.1.3-1 lists the Command Arguments defined in the [[OpenC2-Lang-v1.0]](#o
 | 2 | **stop_time** | Date-Time | 0..1 | The specific date/time to terminate the Action|
 | 3 | **duration** | Duration | 0..1 | The length of time for an Action to be in effect |
 | 4 | **response_requested** | Response-Type | 0..1 | The type of Response required for the Action: `none`, `ack`, `status`, `complete` |
+
+**_Type: Hit-Details_**
+
+| Type Name | Type | Description |
+| :--- | :--- | :--- |
+| **Hit-Details** | ArrayOf(String) | Details regarding a subset of hits to one or more honeypots for a given time |
 
 ### 2.1.4 Actuator Specifiers
 An Actuator is the entity that provides the functionality and performs the Action. The Actuator executes the Action on the Target. In the context of this profile, the Actuator is the Honeypots and the presence of one or more Specifiers further refine which Actuator(s) shall execute the Action.
@@ -403,6 +421,8 @@ Table 2.3-1 defines the Commands that are valid in the context of the SLPF profi
 | **devices** | | valid | valid | valid |   | valid | valid | valid |
 | **features** | valid | |   |   |   |   |   |   |
 | **files** |  |  |   |   | valid | valid |   |   |
+| **hit_count** | valid |  |   |   | |  |   |   |
+| **hit_details** | valid |  |   |   | |  |   |   |
 
 Table 2.3-2 defines the Command Arguments that are allowed for a particular Command by the SLPF profile. A Command (the top row in Table 2.3-2) paired with an Argument (the first column in Table 2.3-2) defines an allowable combination. The subsection identified at the intersection of the Command/Argument provides details applicable to each Command as influenced by the Argument.
 
